@@ -1,0 +1,97 @@
+{
+		"nome_disciplina": "Inteligencia Artificial",
+		"professor":
+		{
+			"nome": "Anita Maria da Rocha Fernandes",
+			"email": "anita.fernandes@univali.br"
+		},
+		"alunos":[
+		{
+			"nome": "Ancilon Leuch",
+			"email": "ancilonzinho@gmail.com" 
+		},
+		{
+			"nome": "Andre Filipe Spindola",
+			"email":"uniaodk@gmail.com"
+		},
+		{
+			"nome": "Antonio Luiz Rosa",
+			"email": "antoniolrt@gmail.com" 
+		},
+		{
+			"nome": "Bruno Alexandre Nogueira",
+			"email": "brunoxalexandre@gmail.com"
+		},
+		{
+			"nome": "Carlos Alexandre",
+			"email": "silentalee@icloud.com" 
+		},
+		{
+			"nome": "Carlos Augusto",
+			"email": "carlos_valdiero@hotmail.com" 
+		},
+		{
+			"nome": "Cleston de Souza",
+			"email": "cleston_jr@hotmail.com"  
+		},
+		{
+			"nome": "Edgar Luiz Brissow",
+			"email": "eddiebrissow@gmail.com"
+		},
+		{
+			"nome": "Fernanda Sipriano",
+			"email": "fernandas.marcilio@hotmail.com" 
+		},
+		{
+			"nome": "Guilherme Cruz Martins",
+			"email": "guideon10@hotmail.com"
+		},
+		{
+			"nome": "Guilherme Guedes",
+			"email": "guilhermeguedes.cc@gmail.com" 
+		},
+		{
+			"nome": "Hugo Caramez",
+			"email": "hugo.7.musica@gmail.com"
+		},
+		{
+			"nome": "Hygor Jose Batista",
+			"email": "hygorjoseb@gmail.com" 
+		},
+		{
+			"nome": "Jhean Rodrigo da Silva",
+			"email": "jhean_cross@hotmail.com" 
+		},
+		{
+			"nome": "Joao Vitor Dubiela",
+			"email": "joovitordubiela24@gmail.com"
+		},
+		{
+			"nome": "Leonardo Mauricio de Farias",
+			"email":"furiossam@hotmail.com" 
+		},
+		{
+			"nome": "Lucas Iohan Pacheco",
+			"email":"luucas.jp@hotmail.com" 
+		},
+		{
+			"nome":"Luiz Alberto Laus da Rosa",
+			"email":"luiz.alberto.laus.rosa@gmail.com" 
+		},
+		{
+			"nome": "Mateus Ramos Ventura",
+			"email":"mateusmfx@gmail.com"
+		},
+		{
+			"nome": "Pablo Flavio da Rosa",
+			"email":"pfrosa64@gmail.com"
+		},
+		{
+			"nome":"Pedro Valenca Prado",
+			"email":"pedrovprado@hotmail.com"
+		},
+		{
+			"nome": "Vinicius de Aquino Piai",
+			"email":"vinicius-piai@hotmail.com"
+		}]
+	}

@@ -1,0 +1,96 @@
+ {% extends "base.html" %}
+
+ {% load static %}
+
+ {% block content %}
+
+  <div>
+        <style scoped>
+
+            .button-success,
+            .button-error,
+            .button-warning,
+            .button-secondary {
+                color: white;
+                border-radius: 4px;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            }
+
+            .button-success {
+                background: rgb(28, 184, 65); /* this is a green */
+                style="margin-top: 15px;
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+
+            .button-error {
+                background: rgb(202, 60, 60); /* this is a maroon */
+            }
+
+            .button-warning {
+                background: rgb(223, 117, 20); /* this is an orange */
+            }
+
+            .button-secondary {
+                background: rgb(66, 184, 221); /* this is a light blue */
+            }
+
+            </style>
+
+      <p>
+        <h4>
+             Atividades / Diretrizes: {{ atividade.nome }}
+        </h4>
+      </p>
+
+    <p>
+        <br>
+        <H3 style="text-align: center;"  > - {{ atividade.nome }} - </H3>
+        <h4 style="text-align: center;"  > {{ atividade.descricao }} </h4>
+
+      <table class="pure-table pure-table-horizontal">
+
+          <thead>
+          <tr>
+              <th colspan="2" style="text-align:center"> <strong> Diretrizes </strong> </th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr>
+              <td>
+                  <br>
+                  - Apenas a primeira tentativa do quiz oferece premiação
+                  <br>
+                  - Questões em branco contabilizam 0 (zero) à pontuação
+                  <br>
+                  - As respostas corretas serão mostradas: {{ atividade.exibicao_resp_corretas }}
+                  <br>
+                  - O quiz contém: {{ numero_de_questoes }} {% if numero_de_questoes < 2 %} questão {% endif %} {% if numero_de_questoes >= 2 %} questões {% endif %}
+                  <br>
+                  <br>
+                  <br>
+                  Premiações:
+                  <br>
+                  <strong> - Troféu de Bronze: </strong>                  {{ atividade.perc_trof_bronze }}% de acertos
+                  <br>
+                  <strong> - Troféu de Prata: </strong>                   {{ atividade.perc_trof_prata }}% de acertos
+                  <br>
+                  <strong> - Troféu de Ouro: </strong>                    {{ atividade.perc_trof_ouro }}% de acertos
+              </td>
+          </tr>
+          <br>
+          </tbody>
+
+      </table>
+
+      <p style="text-align: center;"  ><strong> Boa sorte! </strong></p>
+
+      <p style="text-align:center">
+        <a class="button-warning pure-button" href="{% url 'courses:atividades' %}">Voltar</a>
+        <a class="button-success pure-button" href="{% url 'courses:respondendo' id=atividade.id %}">Iniciar</a>
+      </p>
+
+  </div>
+
+ {% endblock %}

@@ -1,0 +1,120 @@
+ {% extends "base.html" %}
+
+ {% load static %}
+
+ {% block content %}
+
+ <div>
+
+     <style scoped>
+
+            .button-success,
+            .button-error,
+            .button-warning,
+            .button-secondary {
+                color: white;
+                border-radius: 4px;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            }
+
+            .button-success {
+                background: rgb(28, 184, 65); /* this is a green */
+                style="margin-top: 15px;
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+
+            .button-error {
+                background: rgb(202, 60, 60); /* this is a maroon */
+            }
+
+            .button-warning {
+                background: rgb(223, 117, 20); /* this is an orange */
+            }
+
+            .button-secondary {
+                background: rgb(66, 184, 221); /* this is a light blue */
+            }
+
+            </style>
+
+     <p>
+        <h4>
+             Atividades / Detalhe: {{ atividade.nome }}
+        </h4>
+     </p>
+
+    <h3 style="text-align:center"> - Detalhe - </h3>
+    <p style="text-align:center">_____________________________________________________________________</p>
+
+    <table class="pure-table pure-table-horizontal">
+        <thead>
+            <tr>
+                <th colspan="2" style="text-align:center">Atividade</th>
+                <th> </th>
+            </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td><strong>Nome: </strong> </td>                           <td>{{ atividade.nome }} </td> </tr>
+            <tr> <td><strong>Descrição:</strong> </td>                        <td>{{ atividade.descricao }} </td></tr>
+            <tr> <td><strong>Aleatoriedade das questões? </strong></td>       <td>{{ atividade.aleatoria }} </td></tr>
+            <tr> <td><strong>Exibição das respostas corretas:</strong></td>   <td>{{ atividade.exibicao_resp_corretas }} </td></tr>
+            <tr> <td><strong>Data Inicial:</strong></td>                      <td>{{ atividade.data_inicial }} </td></tr>
+            <tr> <td><strong>Data Final: </strong></td>                       <td>{{ atividade.data_final }} </td></tr>
+            <tr> <td><strong>Troféu de Bronze: </strong></td>                 <td>{{ atividade.perc_trof_bronze }}% </td></tr>
+            <tr> <td><strong>Troféu de Prata: </strong></td>                  <td>{{ atividade.perc_trof_prata }}% </td></tr>
+            <tr> <td><strong>Troféu de Ouro: </strong> </td>                  <td>{{ atividade.perc_trof_ouro }}% </td></tr>
+            <tr> <td><strong>Autor: </strong> </td>                           <td>{{ atividade.autor.nome }} </td></tr>
+
+        </tbody>
+
+    </table>
+
+     {% if atividade.autor.id == usuario %}
+     <p style="text-align:center">_____________________________________________________________________</p>
+     <h3 style="text-align:center"> - Questões da atividade - </h3>
+     <p style="text-align:center">_____________________________________________________________________</p>
+
+     <table class="pure-table pure-table-horizontal">
+         <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>
+                    <a class="button-success pure-button" href="{% url 'courses:criarquestaoatividade' %}"> Criar Questão </a>
+                </th>
+            </tr>
+        </thead>
+
+         <tbody>
+         {% for questao in questoes %}
+         <tr>
+             <td>
+                 <a href="{% url 'courses:detalhesquestaoatividade' id_atividade=atividade.id id_questao=questao.id %}" title="">{{ questao.sentenca }}</a>
+             </td>
+             <td>
+                 <a class="button-secondary pure-button" href="{% url 'courses:editarquestaoatividade' id_atividade=atividade.id id_questao=questao.id %}">Editar</a>
+                 <a class="button-secondary pure-button" href="{% url 'courses:excluirquestaoatividade' id_atividade=atividade.id id_questao=questao.id %}">Excluir</a>
+             </td>
+         </tr>
+         {% empty %}
+         <tr>
+             <td>
+                 <p style="text-align:center">Nenhuma questão encontrada</p>
+             </td>
+         </tr>
+         {% endfor %}
+        </tbody>
+
+     </table>
+
+     {% endif %}
+
+     <p style="text-align:center">
+            <a class="button-warning pure-button" href="{% url 'courses:atividades' %}">Voltar</a>
+     </p>
+
+ </div>
+
+{% endblock %}

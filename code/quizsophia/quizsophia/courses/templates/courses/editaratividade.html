@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="pure-g-r content-ribbon" id="editar_atividade">
+
+    <style scoped>
+
+            .button-success,
+            .button-error,
+            .button-warning,
+            .button-secondary {
+                color: white;
+                border-radius: 4px;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            }
+
+            .button-success {
+                background: rgb(28, 184, 65); /* this is a green */
+                style="margin-top: 15px;
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+
+            .button-error {
+                background: rgb(202, 60, 60); /* this is a maroon */
+            }
+
+            .button-warning {
+                background: rgb(223, 117, 20); /* this is an orange */
+            }
+
+            .button-secondary {
+                background: rgb(66, 184, 221); /* this is a light blue */
+            }
+
+            </style>
+
+    <p>
+        <h4>
+            Atividades / Editar: {{ atividade.nome }}
+        </h4>
+     </p>
+
+    <br>
+
+    <h3 style="text-align:center"> - Editar: {{ atividade.nome }} - </h3>
+    <p style="text-align:center">_____________________________________________________________________</p>
+
+    {% if is_valid %}
+    <table class="pure-table pure-table-horizontal">
+        <thead>
+        <tr>
+            <th style="text-align:center">  </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>
+                <p style="text-align:center"> Atividade salva com sucesso ! </p>
+                <br>
+                <p style="text-align:center">
+                    <a class="button-warning pure-button"  href="{% url 'courses:atividades' %}"> Voltar</a>
+                </p>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    {% endif %}
+
+    <br>
+
+    {% if is_valid == False%}
+    <table class="pure-table pure-table-horizontal">
+        <thead>
+        <tr>
+            <th style="text-align:center">  </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>
+                <form action="#editar_atividade" class="pure-form" method="post">
+                    {% csrf_token %}
+                    <fieldset>
+                        <br>
+                        {% for field in form %}
+                        <div class="pure-control-group">
+                            <br>
+                            {{ field.label_tag }}<span class="required">*</span>
+                            {{ field }}
+
+                            {% if field.errors %}
+                            <ul class="errorlist">
+                                {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        <div class="pure-controls">
+                            <p style="text-align:center">
+                                <a class="button-warning pure-button" href="{% url 'courses:atividades' %}">Voltar</a>
+                                <button type="submit" class="button-success pure-button">Salvar</button>
+                            </p>
+                        </div>
+                    </fieldset>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    {% endif %}
+
+    <br>
+
+</div>
+
+{% endblock %}

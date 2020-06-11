@@ -1,0 +1,90 @@
+<!doctype html>
+
+{% load static %}
+
+<html lang="pt">
+
+<style scoped>
+
+            .button-success,
+            .button-error,
+            .button-warning,
+            .button-secondary {
+                color: white;
+                border-radius: 4px;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            }
+
+            .button-success {
+                background: rgb(28, 184, 65); /* this is a green */
+                style="margin-top: 15px;
+                margin-left: 100px;
+                margin-right: 100px;
+            }
+
+            .button-error {
+                background: rgb(202, 60, 60); /* this is a maroon */
+            }
+
+            .button-warning {
+                background: rgb(223, 117, 20); /* this is an orange */
+            }
+
+            .button-secondary {
+                background: rgb(66, 184, 221); /* this is a light blue */
+            }
+
+            </style>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quiz Sophia</title>
+
+
+    <!--<link rel="stylesheet" href="{% static 'css/pricing-old-ie.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/pricing.css' %}">
+
+    <!--<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-" crossorigin="anonymous"> -->
+
+    <link rel="stylesheet" href="{% static 'css/src/base/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/src/buttons/css/buttons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/src/forms/css/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/src/grids/css/grids-core.css' %}">
+    <link rel="stylesheet" href="{% static 'css/src/menus/css/menus-horizontal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/src/tables/css/tables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/src/pure-min/pure-min.css' %}">
+
+
+
+</head>
+<body>
+
+<div class="pure-menu pure-menu-horizontal">
+    <a href="{% url 'courses:home' %}" class="pure-menu-heading">Quiz Sophia</a>
+    <ul class="pure-menu-list">
+        <li class="pure-menu-item"><a href="{% url 'courses:home' %}" class="pure-menu-link">Página Inicial</a></li>
+        <li class="pure-menu-item"><a href="{% url 'courses:meuperfil' %}" class="pure-menu-link">Meu Perfil</a></li>
+        <li class="pure-menu-item"><a href="{% url 'courses:atividades' %}" class="pure-menu-link">Atividades</a></li>
+        <li class="pure-menu-item"><a href="{% url 'courses:estatisticas' %}" class="pure-menu-link">Estatísticas</a></li>
+        <li class="pure-menu-item"><a href="{% url 'courses:repositorio' %}" class="pure-menu-link">Repositório de Questões</a></li>
+    </ul>
+    <a href="{% url 'courses:sair' %}" class="pure-menu-heading">| Sair |</a>
+</div>
+
+
+{% block content %}
+
+{% endblock %}
+
+
+<div class="footer l-box">
+    <p>
+        Trabalho de Conclusão de Curso - Ciência da Computação - <a href='http://univali.br/'>UNIVALI</a>.
+    </p>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+ {% extends "base.html" %}
+
+ {% load static %}
+
+ {% block content %}
+
+<div class="pure-g-r content-ribbon">
+
+    <style scoped>
+
+            .button-success,
+            .button-error,
+            .button-warning,
+            .button-secondary {
+                color: white;
+                border-radius: 4px;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            }
+
+            .button-success {
+                background: rgb(28, 184, 65); /* this is a green */
+                style="margin-top: 15px;
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+
+            .button-error {
+                background: rgb(202, 60, 60); /* this is a maroon */
+            }
+
+            .button-warning {
+                background: rgb(223, 117, 20); /* this is an orange */
+            }
+
+            .button-secondary {
+                background: rgb(66, 184, 221); /* this is a light blue */
+            }
+
+            </style>
+
+    <p>
+        <h4>
+            Repositório de Questões / Clonar Questão
+        </h4>
+     </p>
+
+    <h3 style="text-align:center"> - Clonar Questão - </h3>
+    <p style="text-align:center">_____________________________________________________________________</p>
+
+    {% if is_valid %}
+
+    <br>
+
+    <table class="pure-table pure-table-horizontal">
+
+            <thead>
+                <tr>
+                    <th style="text-align:center"> </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td style="text-align:center">
+                        <p>Questão clonada com sucesso !</p>
+                        <a class="button-warning pure-button"  href="{% url 'courses:repositorio' %}"> Voltar</a>
+                    </td>
+                </tr>
+
+            </tbody>
+    </table>
+
+    <br>
+
+    {% endif %}
+
+    {% if is_valid == False%}
+
+    <br>
+
+    <table class="pure-table pure-table-horizontal">
+
+        <thead>
+        <tr>
+            <th style="text-align:center"> </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td style="text-align:center">
+                <p>
+                    Selecione a Atividade em que deseja adicionar a questão:
+                </p>
+                <form method="POST" style="text-align:center">
+                {% csrf_token %}
+                    <select id="cb_atividades" name="atividades" >
+                        {% for atividade in atividades %}
+                        <option value= {{ atividade.id }}> {{ atividade.nome }}</option>
+                        {% empty %}
+                        Nenhuma Atividade encontrada!
+                        {% endfor %}
+                    </select>
+                    <p>
+                    <div class="pure-controls">
+                        <a class="button-warning pure-button" href="{% url 'courses:repositorio' %}">Voltar</a>
+                        <button type="submit" name="enviar_" value="enviar" class="button-sucess pure-button">Salvar</button>
+                    </div>
+                    </p>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <br>
+
+    {% endif %}
+
+ </div>
+
+{% endblock %}

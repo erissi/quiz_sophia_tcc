@@ -1,0 +1,94 @@
+ {% extends "base.html" %}
+
+ {% load static %}
+
+ {% block content %}
+
+<div class="pure-g-r content-ribbon">
+
+    <style scoped>
+
+            .button-success,
+            .button-error,
+            .button-warning,
+            .button-secondary {
+                color: white;
+                border-radius: 4px;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            }
+
+            .button-success {
+                background: rgb(28, 184, 65); /* this is a green */
+                style="margin-top: 15px;
+                margin-left: 100px;
+                margin-right: 100px;
+            }
+
+            .button-error {
+                background: rgb(202, 60, 60); /* this is a maroon */
+            }
+
+            .button-warning {
+                background: rgb(223, 117, 20); /* this is an orange */
+            }
+
+            .button-secondary {
+                background: rgb(66, 184, 221); /* this is a light blue */
+            }
+
+            </style>
+
+    <p>
+        <h4>
+            Estatísticas / {{ atividade.nome }}: Análise de Questões
+        </h4>
+    </p>
+
+    <h1>
+        <p style="text-align:center">
+            <img src="{% static 'analise_questao.png' %}" width="60" height="60">
+        </p>
+        <p style="text-align:center"> - Questões - </p>
+    </h1>
+    <p style="text-align:center">
+        Clique sobre uma questão para ir para a análise de respostas:
+    </p>
+
+    <table class="pure-table pure-table-horizontal">
+        <thead>
+        <tr>
+            <th>Lista de Questões</th>
+            <th>Percentual de acertos</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for questao in questoes %}
+        <tr>
+            <td>
+                <a href="{% url 'courses:analise_alternativas' id_atividade=atividade.id id_questao=questao.id %}" title="">{{ questao.sentenca }}</a>
+            </td>
+            <td>
+                {{ questao.percentual }} %
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td>
+                <p>Nenhuma questão encontrada</p>
+            </td>
+        </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <p style="text-align:center">
+        <a class="button-warning pure-button" href="{% url 'courses:estatisticas' %}">Voltar</a>
+    </p>
+
+    <br>
+
+</div>
+
+ {% endblock %}

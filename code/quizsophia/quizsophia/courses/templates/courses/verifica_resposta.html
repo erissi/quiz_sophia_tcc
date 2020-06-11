@@ -1,0 +1,87 @@
+ {% extends "base.html" %}
+
+ {% load static %}
+
+ {% block content %}
+
+ <style scoped>
+
+            .button-success,
+            .button-error,
+            .button-warning,
+            .button-secondary {
+                color: white;
+                border-radius: 4px;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            }
+
+            .button-success {
+                background: rgb(28, 184, 65); /* this is a green */
+                style="margin-top: 15px;
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+
+            .button-error {
+                background: rgb(202, 60, 60); /* this is a maroon */
+            }
+
+            .button-warning {
+                background: rgb(223, 117, 20); /* this is an orange */
+            }
+
+            .button-secondary {
+                background: rgb(66, 184, 221); /* this is a light blue */
+            }
+
+            </style>
+
+ <p>
+ 	<h4>
+	 	Atividades / Diretrizes / Respondendo
+ 	</h4>
+ </p>
+
+ <br>
+ <table class="pure-table pure-table-horizontal">
+	 <thead>
+	 <tr>
+		 <th>Questão {{ contador }}/{{ num_questoes }}</th>
+		 <th>Pontuação da Questão:{{ pontuacao_questao }}</th>
+         <th>Seus pontos: {{ pontos_usuario }}</th>
+		 <th>Tempo Total: {{ tempo_resposta }} </th>
+		 <th style="text-align:center">
+                        <img src="{% static 'relogio.gif' %}" width="80" height="80">
+		 </th>
+	 </tr>
+	 </thead>
+	 <tbody>
+	 <tr>
+		 <td colspan="5">
+			 {% if eh_correta == True %}
+				<div id="popup_1">
+					<p>A resposta está correta!  <img src="{% static 'ok.png' %}" width="50" height="40"> </p>
+				</div>
+			{% endif %}
+			{% if eh_correta == False %}
+				<div id="popup_2">
+					<p>A resposta está incorreta! <img src="{% static 'erro.png' %}" width="50" height="40"> </p>
+				</div>
+			{% endif %}
+			 <br>
+			 <strong>Sentença: </strong> {{ questao.sentenca }}
+			 <br>
+			 <strong>Explicação da resposta: </strong> {{ questao.feedback }}
+			 <br>
+			 <strong>Resposta Correta: </strong> {{ texto_resposta_correta }}
+
+			 <div class="pure-controls">
+				 <a class="button-warning pure-button" href="{% url 'courses:resultado' id=atividade %}">Sair</a>
+      			<a class="button-success pure-button" href="{% url 'courses:respondendo' id=atividade %}">Próxima</a>
+			 </div>
+		 </td>
+	 </tr>
+	 </tbody>
+ </table>
+ <br>
+ {% endblock %}

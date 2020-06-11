@@ -1,0 +1,145 @@
+ {% extends "base.html" %}
+
+ {% load static %}
+
+ {% block content %}
+
+  <div>
+        <style scoped>
+
+            .button-success,
+            .button-error,
+            .button-warning,
+            .button-secondary {
+                color: white;
+                border-radius: 4px;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            }
+
+            .button-success {
+                background: rgb(28, 184, 65); /* this is a green */
+                style="margin-top: 15px;
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+
+            .button-error {
+                background: rgb(202, 60, 60); /* this is a maroon */
+            }
+
+            .button-warning {
+                background: rgb(223, 117, 20); /* this is an orange */
+            }
+
+            .button-secondary {
+                background: rgb(66, 184, 221); /* this is a light blue */
+            }
+
+            </style>
+
+      <p>
+        <h4>
+            Atividades / Diretrizes / Respondendo / Resultado
+        </h4>
+      </p>
+    <H3 style="text-align: center;"  > - Resultado do Quiz: {{ atividade_s.nome }} - </H3>
+    <p style="text-align:center">
+        <br>
+        Você acertou <strong> {{ qtd_acertos }} </strong> de <strong> {{ num_questoes }} </strong> {% if numero_de_questoes < 2 %} questão {% endif %} {% if numero_de_questoes >= 2 %} questões {% endif %} !
+        <br>
+        Seu percentual de acertos foi de : <strong> {{ perc_acertos }} </strong> %!
+        <br>
+        <br>
+    </p>
+
+          {% if qtd_tentativas == 1 %}
+            {% if premio == 'Trofeu de Ouro' %}
+                <p style="text-align:center">
+                    Parabéns! Você ganhou: <strong> {{ premio }} </strong>
+                    <br>
+                    <img src="{% static 'trofeu_de_ouro.png' %}" width="70" height="60">
+                    <br>
+                </p>
+            {% endif %}
+
+            {% if premio == 'Trofeu de Prata' %}
+                <p style="text-align:center">
+                    Parabéns! Você ganhou: <strong> {{ premio }} </strong>
+                    <br>
+                    <img src="{% static 'trofeu_de_prata.png' %}" width="70" height="60">
+                    <br>
+                </p>
+            {% endif %}
+
+            {% if premio == 'Trofeu de Bronze' %}
+                <p style="text-align:center">
+                    Parabéns! Você ganhou: <strong> {{ premio }} </strong>
+                    <br>
+                    <img src="{% static 'trofeu_de_bronze.png' %}" width="70" height="60">
+                    <br>
+                </p>
+            {% endif %}
+
+            {% if premio == 'Medalha de Participação' %}
+                <p style="text-align:center">
+                    Você ganhou: {{ premio }}
+                    <br>
+                    <img src="{% static 'medalha.png' %}" width="70" height="60">
+                    <br>
+                </p>
+            {% endif %}
+          {% endif %}
+
+      <table class="pure-table pure-table-horizontal">
+
+          <thead>
+          <tr>
+              <th colspan="2" style="text-align:center"> </th>
+          </tr>
+          </thead>
+
+          <tbody>
+          {% for questao in questoes_atividade_sessao %}
+          <tr>
+              <td>
+                  <p style="text-align:center">
+                      {% if questao.acertou == True %}
+                        <img src="{% static 'ok.png' %}" width="40" height="30">
+                        <br>
+                      {% endif %}
+                  </p>
+
+                  <p style="text-align:center">
+                      {% if questao.acertou == False %}
+                        <img src="{% static 'erro.png' %}" width="40" height="30">
+                        <br>
+                      {% endif %}
+                  </p>
+              </td>
+              <td>
+                  <strong>Sentença: </strong> {{ questao.sentenca }}
+                  <br>
+                  <strong>Explicação da resposta: </strong> {{ questao.feedback }}
+                  <br>
+                  <strong>Resposta Correta: </strong> {{ questao.resposta_correta }}
+                  <br>
+                  <strong>Sua resposta: </strong> {{ questao.resposta_aluno }}
+              </td>
+              <td>
+
+              </td>
+          </tr>
+          {% endfor %}
+          <br>
+          </tbody>
+
+      </table>
+
+      <p  style="text-align:center">
+          <a class="button-warning pure-button" href="{% url 'courses:atividades' %}">Sair</a>
+      </p>
+
+
+ </div>
+
+{% endblock %}

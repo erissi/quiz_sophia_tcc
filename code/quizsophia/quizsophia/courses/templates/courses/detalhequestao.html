@@ -1,0 +1,109 @@
+ {% extends "base.html" %}
+
+ {% load static %}
+
+ {% block content %}
+
+ <div>
+
+     <style scoped>
+
+            .button-success,
+            .button-error,
+            .button-warning,
+            .button-secondary {
+                color: white;
+                border-radius: 4px;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            }
+
+            .button-success {
+                background: rgb(28, 184, 65); /* this is a green */
+                style="margin-top: 15px;
+                margin-left: 100px;
+                margin-right: 100px;
+            }
+
+            .button-error {
+                background: rgb(202, 60, 60); /* this is a maroon */
+            }
+
+            .button-warning {
+                background: rgb(223, 117, 20); /* this is an orange */
+            }
+
+            .button-secondary {
+                background: rgb(66, 184, 221); /* this is a light blue */
+            }
+
+            </style>
+
+     <p>
+        <h4>
+            Repositório de Questões / Detalhe Questão
+        </h4>
+     </p>
+
+    <p>
+
+     <h3 style="text-align:center"> - Detalhe - </h3>
+     <p style="text-align:center">_____________________________________________________________________</p>
+
+    <table class="pure-table pure-table-horizontal">
+
+        <thead>
+            <tr>
+                 <th colspan="2" style="text-align:center">Questão</th>
+                 <th>  </th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr> <td><strong>Sentença:</strong></td>                  <td>{{ questao.sentenca }} </td></tr>
+            <tr> <td><strong>Feedback:</strong></td>                  <td>{{ questao.feedback }} </td></tr>
+            <tr> <td><strong>Pontuação: </strong> </td>               <td>{{ questao.pontuacao }} pontos</td></tr>
+            <tr> <td><strong>Tempo para responder: </strong></td>     <td>{{ questao.tempo_resposta }} </td></tr>
+            <tr> <td><strong>Nível de Dificuldade:</strong></td>      <td>{{ questao.nivel_dificuldade }} </td></tr>
+            <tr> <td><strong>Nível de Aprendizado: </strong></td>     <td>{{ questao.nivel_aprendizado }} </td></tr>
+            <tr> <td><strong>Tipo: </strong></td>                     <td>{{ questao.tipo }} </td> </tr>
+            {% if questao.tipo == "Múltipla Escolha" or questao.tipo == "Lacunas"%}
+            <tr>
+                <td><strong>1° Alternativa: </strong></td>     <td>{{ questao.alternativas.primeira_alternativa }} </td>
+            </tr>
+            <tr>
+                <td><strong>2° Alternativa: </strong></td>     <td>{{ questao.alternativas.segunda_alternativa }} </td>
+            </tr>
+            <tr>
+                <td><strong>3° Alternativa: </strong></td>     <td>{{ questao.alternativas.terceira_alternativa }} </td>
+            </tr>
+            <tr>
+                <td><strong>4° Alternativa: </strong></td>     <td>{{ questao.alternativas.quarta_alternativa }} </td>
+            </tr>
+            <tr>
+                <td><strong>5° Alternativa: </strong></td>     <td>{{ questao.alternativas.quinta_alternativa }} </td>
+            </tr>
+            {% endif %}
+            {% if questao.tipo == "Verdadeiro ou Falso" %}
+            <tr>
+                <td><strong>1° Alternativa: </strong></td>     <td>{{ questao.alternativas.primeira_alternativa }} </td>
+            </tr>
+            <tr>
+                <td><strong>2° Alternativa: </strong></td>     <td>{{ questao.alternativas.segunda_alternativa }} </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td><strong>Resposta Correta: </strong></td>     <td>{{ questao.resposta.correta }} </td>
+            </tr>
+        </tbody>
+    </table>
+
+     <p style="text-align:center">
+
+                     <a class="button-warning pure-button" href="{% url 'courses:repositorio' %}">Voltar</a>
+     </p>
+
+ </div>
+
+
+{% endblock %}

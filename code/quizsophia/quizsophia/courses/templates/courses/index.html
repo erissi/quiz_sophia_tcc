@@ -1,0 +1,110 @@
+ {% extends "base.html" %}
+
+ {% load static %}
+
+ {% block content %}
+
+<div class="pure-g-r content-ribbon">
+
+    <style scoped>
+
+            .button-success,
+            .button-error,
+            .button-warning,
+            .button-secondary {
+                color: white;
+                border-radius: 4px;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            }
+
+            .button-success {
+                background: rgb(28, 184, 65); /* this is a green */
+                style="margin-top: 15px;
+                margin-left: 100px;
+                margin-right: 100px;
+            }
+
+            .button-error {
+                background: rgb(202, 60, 60); /* this is a maroon */
+            }
+
+            .button-warning {
+                background: rgb(223, 117, 20); /* this is an orange */
+            }
+
+            .button-secondary {
+                background: rgb(66, 184, 221); /* this is a light blue */
+            }
+
+            </style>
+
+    <p>
+        <h4>
+            Atividades /
+        </h4>
+    </p>
+
+    <h1>
+        <p style="text-align:center">
+            <img src="{% static 'atividade.png' %}" width="60" height="60">
+        </p>
+        <p style="text-align:center"> - Lista de Atividades - </p>
+    </h1>
+
+    <table class="pure-table pure-table-horizontal">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Data Inicial</th>
+            <th>Data Limite</th>
+            <th>
+
+            </th>
+            <th style="text-align:center">
+            {% if usuario == id_professor %}
+                <a class="button-success pure-button" href="{% url 'courses:criaratividade' %}">Criar Atividade</a>
+            {% endif %}
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for atividade in atividades %}
+        <tr>
+            <td>
+                <a href="{% url 'courses:detalhesatividade' id=atividade.id %}" title="">{{ atividade.nome }}</a>
+                {{ atividade.descricao|linebreaks }}
+            </td>
+            <td>
+                {{ atividade.data_inicial }}
+            </td>
+            <td>
+                {{ atividade.data_final }}
+            </td>
+            <td>
+                {% if atividade.autor.id == usuario %}
+                    <a class="button-secondary pure-button" href="{% url 'courses:editaratividade' id=atividade.id %}">Editar</a>
+                    <a class="button-secondary pure-button" href="{% url 'courses:excluiratividade' id=atividade.id %}">Excluir</a>
+                {% endif %}
+            </td>
+            <td>
+                <a class="button-success pure-button" href="{% url 'courses:iniciar' id=atividade.id %}">Responder</a>
+                <a class="button-warning pure-button" href="{% url 'courses:ranking' id=atividade.id %}">Ranking</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td>
+                <p>Nenhuma atividade encontrada</p>
+            </td>
+        </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+
+</div>
+
+ {% endblock %}

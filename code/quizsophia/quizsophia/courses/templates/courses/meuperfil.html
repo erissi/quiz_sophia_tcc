@@ -1,0 +1,100 @@
+ {% extends "base.html" %}
+
+ {% load static %}
+
+ {% block content %}
+
+
+ <p>
+    <h4>
+        Meu Perfil /
+    </h4>
+ </p>
+
+ <div class="pure-g-r content-ribbon">
+     <h1>
+         <p style="text-align:center">
+             <img src="{% static 'perfil.png' %}" width="60" height="60">
+         </p>
+         <p style="text-align:center"> - Meu Perfil - </p>
+
+     </h1>
+
+     <p style="text-align:center">
+         <strong>Nome: </strong> {{ nome_usuario }}
+         <br>
+         <strong>Email: </strong> {{ email_usuario }}
+         <br>
+     </p>
+
+     <br>
+
+     <p style="text-align:center">
+        <h3 style="text-align:center">
+            Recompensas
+            <img src="{% static 'recompensa.png' %}" width="60" height="40">
+        </h3>
+     </p>
+
+     {% if qtd_trofeus > 0 %}
+
+        <table class="pure-table pure-table-horizontal">
+        <thead>
+        <tr>
+            <th  colspan="2" style="text-align:center" > Prêmio </th>
+            <th> Atividade </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for atividade in atividades %}
+        <tr>
+            <td style="text-align:center">
+                <br>
+                {% if atividade.premiacao == 'Trofeu de Ouro' %}
+                    <img src="{% static 'trofeu_de_ouro.png' %}" width="40" height="40">
+                {% endif %}
+                {% if atividade.premiacao == 'Trofeu de Prata' %}
+                    <img src="{% static 'trofeu_de_prata.png' %}" width="40" height="40">
+                {% endif %}
+                {% if atividade.premiacao == 'Trofeu de Bronze' %}
+                    <img src="{% static 'trofeu_de_bronze.png' %}" width="40" height="40">
+                {% endif %}
+                {% if atividade.premiacao != 'Trofeu de Ouro' and atividade.premiacao != 'Trofeu de Prata' and atividade.premiacao != 'Trofeu de Bronze' %}
+                    <img src="{% static 'medalha.png' %}" width="40" height="40">
+                {% endif %}
+            </td>
+            <td>
+                {{ atividade.premiacao }}
+            </td>
+            <td>
+                <a href="{% url 'courses:detalhesatividadesessao' id=atividade.id %}" title="">{{ atividade.nome }}</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td>
+                <p>Nenhuma atividade encontrada</p>
+            </td>
+        </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+     {% endif %}
+     {% if qtd_trofeus == 0 %}
+        <p style="text-align:center">
+            <img src="{% static 'smile_triste.jpg' %}" width="40" height="40">
+            <br>
+            Você ainda não possui nenhuma recompensa !
+            <br>
+            (Recompensas são obtidas por meio de execução de atividades)
+            <br>
+        </p>
+     {% endif %}
+     <br>
+
+ </div>
+
+{% endblock %}

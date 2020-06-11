@@ -1,0 +1,109 @@
+ {% extends "base.html" %}
+
+ {% load static %}
+
+ {% block content %}
+
+ <style scoped>
+
+            .button-success,
+            .button-error,
+            .button-warning,
+            .button-secondary {
+                color: white;
+                border-radius: 4px;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            }
+
+            .button-success {
+                background: rgb(28, 184, 65); /* this is a green */
+                style="margin-top: 15px;
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+
+            .button-error {
+                background: rgb(202, 60, 60); /* this is a maroon */
+            }
+
+            .button-warning {
+                background: rgb(223, 117, 20); /* this is an orange */
+            }
+
+            .button-secondary {
+                background: rgb(66, 184, 221); /* this is a light blue */
+            }
+
+            </style>
+
+ <p>
+    <h4>
+        Atividades / Ranking: {{ atividade.nome }}
+    </h4>
+ </p>
+
+ <div class="pure-g-r content-ribbon">
+    <br>
+     <h1>
+         <p style="text-align:center"> <img src="{% static 'ranking.png' %}" width="60" height="60"> </p>
+         <p style="text-align:center"> - Ranking - </p>
+     </h1>
+     <h3>
+         <p style="text-align:center">
+             {{ atividade.nome }}
+         </p>
+     </h3>
+ </div>
+
+
+<table class="pure-table pure-table-horizontal">
+            <thead>
+                <tr>
+                    <th style="text-align:center"> Posição </th>
+                    <th style="text-align:center"> Nome </th>
+                    <th style="text-align:center"> Pontos </th>
+                    <th style="text-align:center"> Prêmio </th>
+                    <th style="text-align:center">  </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for itemranking in ranking %}
+                <tr>
+                    <td style="text-align:center"> {{ itemranking.posicao }}° </td>
+                    <td style="text-align:center"> {{ itemranking.nome }} </td>
+                    <td style="text-align:center"> {{ itemranking.pontos }} </td>
+                    <td style="text-align:center"> {{ itemranking.premio }} </td>
+                    <td style="text-align:center">
+                        {% if itemranking.premio == 'Trofeu de Ouro' %}
+                            <img src="{% static 'trofeu_de_ouro.png' %}" width="40" height="40">
+                        {% endif %}
+                        {% if itemranking.premio == 'Trofeu de Prata' %}
+                            <img src="{% static 'trofeu_de_prata.png' %}" width="40" height="40">
+                        {% endif %}
+                        {% if itemranking.premio == 'Trofeu de Bronze' %}
+                            <img src="{% static 'trofeu_de_bronze.png' %}" width="40" height="40">
+                        {% endif %}
+                        {% if itemranking.premio == 'Medalha de Participação' %}
+                            <img src="{% static 'medalha.png' %}" width="40" height="40">
+                        {% endif %}
+                    </td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td>
+                        <p>Nenhuma premiação encontrada</p>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+ </table>
+ <p style="text-align:center">
+    <a class="button-warning pure-button" href="{% url 'courses:atividades' %}">Voltar</a>
+ </p>
+
+ <br>
+
+ {% endblock %}

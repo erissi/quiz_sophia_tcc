@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<style scoped>
+
+            .button-success,
+            .button-error,
+            .button-warning,
+            .button-secondary {
+                color: white;
+                border-radius: 4px;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            }
+
+            .button-success {
+                background: rgb(28, 184, 65); /* this is a green */
+                style="margin-top: 15px;
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+
+            .button-error {
+                background: rgb(202, 60, 60); /* this is a maroon */
+            }
+
+            .button-warning {
+                background: rgb(223, 117, 20); /* this is an orange */
+            }
+
+            .button-secondary {
+                background: rgb(66, 184, 221); /* this is a light blue */
+            }
+
+            </style>
+
+<p>
+    <h4>
+            Repositório de Questões / Criar Questão
+    </h4>
+</p>
+
+<div class="pure-g-r content-ribbon" id="criar_questao">
+
+    <br>
+
+    <h3 style="text-align:center"> - Criar Questão - </h3>
+    <p style="text-align:center">_____________________________________________________________________</p>
+
+    {% if is_valid %}
+
+    <table class="pure-table pure-table-horizontal">
+        <thead>
+        <tr>
+            <th style="text-align:center">  </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>
+                <p style="text-align:center"> Questão criada com sucesso ! </p>
+                <br>
+                <div class="pure-controls">
+                    <p style="text-align:center">
+                        <a class="button-warning pure-button" href="{% url 'courses:repositorio' %}">Voltar</a>
+                        <a class="button-success pure-button" href="{% url 'courses:criarquestao' %}">Nova Questão</a>
+                    </p>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    {% endif %}
+
+    {% if is_valid == False%}
+
+    <table class="pure-table pure-table-horizontal">
+        <thead>
+        <tr>
+            <th style="text-align:center">  </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>
+                <form action="#criar_questao" class="pure-form" method="post">
+                    {% csrf_token %}
+                    <fieldset>
+                        <br>
+                        {% for field in form %}
+                        <div class="pure-control-group">
+                            <br>
+
+                            {{ field.label_tag }}<span class="required">*</span>
+                            {{ field }}
+
+                            {% if field.errors %}
+                            <ul class="errorlist">
+                                {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+
+                        <div id="multipla_escolha" style="display: block">
+                            {% for field_alt in form_alt %}
+                            <div class="pure-control-group">
+                                <br>
+                                {{ field_alt.label_tag }}
+                                {{ field_alt }}
+
+                                {% if field_alt.errors %}
+                                <ul class="errorlist">
+                                    {% for error in field_alt.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+
+
+                        <div id="lacunas" style="display: none">
+                            {% for field_l in form_l %}
+                            <div class="pure-control-group">
+                                <br>
+                                {{ field_l.label_tag }}
+                                {{ field_l }}
+                                {{ field_l.help_text }}
+
+                                {% if field_l.errors %}
+                                <ul class="errorlist">
+                                    {% for error in field_l.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+
+
+                        <div id="verdadeiro_ou_falso" style="display: none">
+                            {% for field_vf in form_vf %}
+                            <div class="pure-control-group">
+                                <br>
+                                {{ field_vf.label_tag }}
+                                {{ field_vf }}
+
+                                {% if field_vf.errors %}
+                                <ul class="errorlist">
+                                    {% for error in field_vf.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+
+
+                        <br>
+
+                        <div class="pure-controls">
+                            <p style="text-align:center">
+                                <a class="button-warning pure-button" href="{% url 'courses:repositorio' %}">Voltar</a>
+                                <button type="submit"  name="enviar_" value="enviar"  class="button-success pure-button">Salvar</button>
+                            </p>
+                        </div>
+                    </fieldset>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    {% endif %}
+
+</div>
+
+<script>
+function alternar_divs() {
+   switch (document.getElementById('id_tipo').value) {
+      case 'Múltipla Escolha':
+      document.getElementById('multipla_escolha').style.display="block";
+      document.getElementById('verdadeiro_ou_falso').style.display="none";
+      document.getElementById('lacunas').style.display="none";
+      document.getElementById('verdadeiro_ou_falso').disabled=true
+      document.getElementById('lacunas').disabled=true
+      break
+      case 'Verdadeiro ou Falso':
+      document.getElementById('verdadeiro_ou_falso').style.display="block";
+      document.getElementById('multipla_escolha').style.display="none";
+      document.getElementById('lacunas').style.display="none";
+      break
+      case 'Lacunas':
+      document.getElementById('lacunas').style.display="block";
+      document.getElementById('verdadeiro_ou_falso').style.display="none";
+      document.getElementById('multipla_escolha').style.display="none";
+      document.getElementById('mostra_msg_exemplo').style.display="block";
+      document.getElementById('mostra_msg_exemplo').innerHTML = 'Exemplo: "Palavras que serão  ____________(lacunas) deverão ser substituídas por ____________ (underline)"'
+      break
+   }
+}
+</script>
+
+{% endblock %}
+

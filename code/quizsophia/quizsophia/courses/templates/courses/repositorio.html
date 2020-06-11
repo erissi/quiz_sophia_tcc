@@ -1,0 +1,109 @@
+ {% extends "base.html" %}
+
+ {% load static %}
+
+ {% block content %}
+
+<div class="pure-g-r content-ribbon">
+
+    <style scoped>
+
+            .button-success,
+            .button-error,
+            .button-warning,
+            .button-secondary {
+                color: white;
+                border-radius: 4px;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            }
+
+            .button-success {
+                background: rgb(28, 184, 65); /* this is a green */
+                style="margin-top: 15px;
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+
+            .button-error {
+                background: rgb(202, 60, 60); /* this is a maroon */
+            }
+
+            .button-warning {
+                background: rgb(223, 117, 20); /* this is an orange */
+            }
+
+            .button-secondary {
+                background: rgb(66, 184, 221); /* this is a light blue */
+            }
+
+            </style>
+
+    <p>
+        <h4>
+            Repositório de Questões
+        </h4>
+     </p>
+
+
+
+</div>
+
+  <div class="pure-g-r content-ribbon">
+     <h1>
+         <p style="text-align:center">
+             <img src="{% static 'colaboration.png' %}" width="50" height="50">
+         </p>
+         <p style="text-align:center"> - Lista de Questões - </p>
+     </h1>
+ </div>
+
+    {% if usuario != id_professor %}
+    <p style="text-align:center">
+        Você não possui permissão para visualizar esta página.
+        <br>
+        Somente o professor da disciplina pode visualizar este conteúdo.
+    </p>
+    {% endif %}
+
+    {% if usuario == id_professor %}
+     <table class="pure-table pure-table-horizontal">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>
+                    {% if usuario == id_professor %}
+                        <a class="button-success pure-button" href="{% url 'courses:criarquestao' %}">Criar Questão</a>
+                    {% endif %}
+                </th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for questao in questoes %}
+                <tr>
+                    <td>
+                        <a href="{% url 'courses:detalhesquestao' id=questao.id %}" title="">{{ questao.sentenca }}</a></h4>
+
+                    </td>
+                    <td>
+                        {% if questao.autor.id == usuario %}
+                            <a class="button-secondary pure-button" href="{% url 'courses:editarquestaorepositorio' id=questao.id %}">Editar</a>
+                            <a class="button-secondary pure-button" href="{% url 'courses:excluirquestao' id=questao.id %}">Excluir</a>
+                        {% endif %}
+                        <a class="button-secondary pure-button" href="{% url 'courses:clonarquestao' id=questao.id %}">Clonar</a>
+                    </td>
+                </tr>
+               {% empty %}
+                 <tr>  <td>  <p>Nenhuma questão encontrada</p> </td> </tr>
+            {% endfor %}
+        </tbody>
+     </table>
+    {% endif %}
+
+
+    <br>
+        <br>
+        <br>
+
+{% endblock %}
